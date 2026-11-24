@@ -1,0 +1,606 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>São Paulo FC - O Tricolor</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(120deg,#100509,#4b101b,#171717);
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    background: #111;
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 3px solid #e31837;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #e31837;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+nav button {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+nav button:hover,
+nav button.active {
+    background: #e31837;
+}
+
+main {
+    max-width: 1150px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.page {
+    display: none;
+    animation: aparecer .4s;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes aparecer {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.banner {
+    text-align: center;
+    padding: 65px 20px;
+}
+
+.banner h1 {
+    font-size: 44px;
+    margin-bottom: 15px;
+}
+
+.banner h1 span {
+    color: #e31837;
+}
+
+.banner p {
+    color: #ddd;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: auto;
+}
+
+.btn {
+    background: #e31837;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 9px;
+    margin-top: 22px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #b80e29;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: linear-gradient(145deg,#fff,#e5e5e5,#c9c9c9);
+    color: #222;
+    padding: 23px;
+    border-radius: 15px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #666;
+    font-size: 15px;
+}
+
+.card strong {
+    display: block;
+    color: #d31332;
+    font-size: 27px;
+    margin-top: 10px;
+}
+
+.card .icon {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.section {
+    background: linear-gradient(145deg,#fff,#e8e8e8,#d0d0d0);
+    color: #222;
+    padding: 27px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.section h2 {
+    margin-bottom: 17px;
+}
+
+.section p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 18px;
+}
+
+.item {
+    background: linear-gradient(145deg,#fff,#e3e3e3);
+    padding: 22px;
+    border-radius: 13px;
+    transition: .3s;
+}
+
+.item:hover {
+    transform: translateY(-4px);
+}
+
+.item .icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.item h3 {
+    color: #d31332;
+    margin-bottom: 10px;
+}
+
+.item p {
+    font-size: 14px;
+}
+
+.timeline {
+    border-left: 4px solid #e31837;
+    padding-left: 23px;
+    margin: 20px 0 10px 10px;
+}
+
+.timeline div {
+    margin-bottom: 25px;
+}
+
+.timeline strong {
+    color: #d31332;
+    font-size: 20px;
+}
+
+.photo {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 13px;
+    margin-top: 12px;
+}
+
+.destaque {
+    background: linear-gradient(120deg,#191919,#86152b);
+    padding: 25px;
+    border-radius: 14px;
+    color: white;
+    margin-top: 18px;
+}
+
+.destaque p {
+    color: #eee;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #111;
+    border-top: 2px solid #e31837;
+    color: #ccc;
+    font-size: 13px;
+}
+
+footer span {
+    color: #e31837;
+}
+
+@media(max-width:600px) {
+    header {
+        justify-content: center;
+    }
+
+    .banner h1 {
+        font-size: 30px;
+    }
+
+    .section {
+        padding: 19px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">SÃO PAULO <span>FC</span> 🔴⚪⚫</div>
+
+    <nav>
+        <button class="active" id="nav-inicio" onclick="abrir('inicio')">Início</button>
+        <button id="nav-historia" onclick="abrir('historia')">História</button>
+        <button id="nav-titulos" onclick="abrir('titulos')">Conquistas</button>
+        <button id="nav-idolos" onclick="abrir('idolos')">Ídolos</button>
+    </nav>
+</header>
+
+<main>
+
+<div class="page active" id="inicio">
+
+    <div class="banner">
+        <h1>ORGULHO <span>TRICOLOR</span></h1>
+
+        <p>
+            Mais que um clube, uma paixão que atravessa gerações.
+            Conheça a história, os títulos e os grandes momentos
+            do São Paulo Futebol Clube.
+        </p>
+
+        <button class="btn" onclick="abrir('historia')">
+            Conheça o clube
+        </button>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">📅</div>
+            <h3>Fundação</h3>
+            <strong>1930</strong>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏆</div>
+            <h3>Libertadores</h3>
+            <strong>3 títulos</strong>
+        </div>
+
+        <div class="card">
+            <div class="icon">🌎</div>
+            <h3>Mundiais</h3>
+            <strong>3 títulos</strong>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏟️</div>
+            <h3>Casa Tricolor</h3>
+            <strong>Morumbi</strong>
+        </div>
+
+    </div>
+
+    <section class="section">
+        <h2>🔴⚪⚫ A força do Tricolor</h2>
+
+        <p>
+            Fundado em 25 de janeiro de 1930, o São Paulo
+            Futebol Clube é um dos times mais tradicionais
+            do futebol brasileiro.
+        </p>
+
+        <p>
+            Sua história é marcada por grandes jogadores,
+            conquistas internacionais e uma torcida que
+            acompanha o clube em todos os momentos.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>🏟️ Estádio do Morumbi</h2>
+
+        <p>
+            O Morumbi é um dos principais símbolos do
+            São Paulo FC. Inaugurado em 1960, recebe
+            grandes partidas e eventos.
+        </p>
+
+        <img class="photo"
+        src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=1200&q=85"
+        alt="Estádio de futebol">
+    </section>
+
+</div>
+
+<!-- HISTÓRIA -->
+
+<div class="page" id="historia">
+
+    <div class="banner">
+        <h1>A NOSSA <span>HISTÓRIA</span></h1>
+        <p>Uma trajetória construída com dedicação, tradição e conquistas.</p>
+    </div>
+
+    <section class="section">
+        <h2>📖 Como tudo começou</h2>
+
+        <p>
+            O São Paulo Futebol Clube nasceu em 25 de janeiro
+            de 1930, na capital paulista, reunindo pessoas
+            ligadas ao futebol da cidade.
+        </p>
+
+        <p>
+            Após enfrentar dificuldades, o clube passou
+            por uma reorganização em 1935, dando início
+            a uma nova fase de crescimento.
+        </p>
+
+        <p>
+            Ao longo das décadas, conquistou espaço entre
+            os principais clubes do país e ganhou destaque
+            internacional.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>📅 Momentos importantes</h2>
+
+        <div class="timeline">
+
+            <div>
+                <strong>1930</strong>
+                <p>Fundação do São Paulo FC.</p>
+            </div>
+
+            <div>
+                <strong>1977</strong>
+                <p>Primeiro Campeonato Brasileiro.</p>
+            </div>
+
+            <div>
+                <strong>1992</strong>
+                <p>Primeira Libertadores e primeiro Mundial.</p>
+            </div>
+
+            <div>
+                <strong>2005</strong>
+                <p>Conquista da Libertadores e do Mundial de Clubes.</p>
+            </div>
+
+            <div>
+                <strong>2023</strong>
+                <p>Primeira conquista da Copa do Brasil.</p>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<!-- CONQUISTAS -->
+
+<div class="page" id="titulos">
+
+    <div class="banner">
+        <h1>GRANDES <span>CONQUISTAS</span></h1>
+        <p>Uma coleção de títulos que marcou o futebol mundial.</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🌎</div>
+            <h3>Mundiais</h3>
+            <strong>3</strong>
+            <p>1992, 1993 e 2005</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏆</div>
+            <h3>Libertadores</h3>
+            <strong>3</strong>
+            <p>1992, 1993 e 2005</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🥇</div>
+            <h3>Brasileirão</h3>
+            <strong>6</strong>
+            <p>1977, 1986, 1991, 2006, 2007 e 2008</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🇧🇷</div>
+            <h3>Copa do Brasil</h3>
+            <strong>1</strong>
+            <p>2023</p>
+        </div>
+
+    </div>
+
+    <section class="section">
+        <h2>⭐ Uma história de glórias</h2>
+
+        <p>
+            As conquistas internacionais fizeram o São Paulo
+            ser reconhecido mundialmente. Os títulos de
+            Libertadores e Mundial estão entre os momentos
+            mais importantes da trajetória tricolor.
+        </p>
+
+        <div class="destaque">
+            <h2>O Tricolor é gigante!</h2>
+            <p>
+                Cada conquista representa o esforço de
+                jogadores, treinadores e torcedores que
+                fizeram parte dessa história.
+            </p>
+        </div>
+    </section>
+
+</div>
+
+<!-- ÍDOLOS -->
+
+<div class="page" id="idolos">
+
+    <div class="banner">
+        <h1>ÍDOLOS <span>TRICOLORES</span></h1>
+        <p>Jogadores que deixaram seus nomes marcados na história do clube.</p>
+    </div>
+
+    <section class="section">
+        <h2>⭐ Grandes jogadores</h2>
+
+        <div class="grid">
+
+            <div class="item">
+                <div class="icon">🧤</div>
+                <h3>Rogério Ceni</h3>
+                <p>
+                    Goleiro histórico e um dos maiores
+                    símbolos do São Paulo, conhecido
+                    por seus gols e liderança.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">⚽</div>
+                <h3>Raí</h3>
+                <p>
+                    Destaque da equipe nas conquistas
+                    internacionais de 1992.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">⚽</div>
+                <h3>Careca</h3>
+                <p>
+                    Grande atacante que marcou época
+                    durante a década de 1980.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">⚽</div>
+                <h3>Diego Lugano</h3>
+                <p>
+                    Zagueiro uruguaio e referência
+                    na conquista da Libertadores de 2005.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">⚽</div>
+                <h3>Mineiro</h3>
+                <p>
+                    Autor do gol que garantiu a vitória
+                    no Mundial de Clubes de 2005.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">⚽</div>
+                <h3>Hernanes</h3>
+                <p>
+                    Meia importante nas conquistas
+                    brasileiras de 2007 e 2008.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>❤️ Paixão pelo São Paulo</h2>
+
+        <p>
+            Ser são-paulino é carregar uma história
+            de tradição, orgulho e amor pelo futebol.
+            O Tricolor continua construindo sua trajetória
+            dentro e fora dos gramados.
+        </p>
+    </section>
+</div>
+</main>
+
+<footer>
+    <h3>SÃO PAULO <span>FC</span> 🔴⚪⚫</h3>
+</footer>
+
+<script>
+function abrir(pagina) {
+
+    document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+    });
+
+    document.getElementById(pagina).classList.add('active');
+
+    document.querySelectorAll('nav button').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    document.getElementById('nav-' + pagina).classList.add('active');
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+</script>
+
+</body>
+</html>
