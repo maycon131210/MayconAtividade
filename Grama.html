@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenGrass - Grama Sintética</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(120deg,#071b10,#123d24,#101a13);
+    color: white;
+    min-height: 100vh;
+}
+
+header {
+    background: #0b160e;
+    padding: 22px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    border-bottom: 3px solid #32b65b;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #32b65b;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+nav button {
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+nav button:hover,
+nav button.active {
+    background: #249447;
+}
+
+main {
+    max-width: 1150px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.page {
+    display: none;
+    animation: aparecer .4s;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.banner {
+    text-align: center;
+    padding: 65px 20px;
+}
+
+.banner h1 {
+    font-size: 44px;
+    margin-bottom: 15px;
+}
+
+.banner h1 span {
+    color: #42d477;
+}
+
+.banner p {
+    color: #ddd;
+    line-height: 1.7;
+    max-width: 650px;
+    margin: auto;
+}
+
+.btn {
+    background: #249447;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 9px;
+    margin-top: 22px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #176b32;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: linear-gradient(145deg,#fff,#e5e5e5,#c9c9c9);
+    color: #222;
+    padding: 23px;
+    border-radius: 15px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h3 {
+    color: #555;
+    font-size: 15px;
+}
+
+.card strong {
+    display: block;
+    color: #19853d;
+    font-size: 23px;
+    margin-top: 10px;
+}
+
+.card .icon {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.section {
+    background: linear-gradient(145deg,#fff,#e8e8e8,#d0d0d0);
+    color: #222;
+    padding: 27px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.section h2 {
+    margin-bottom: 17px;
+    color: #176b32;
+}
+
+.section p {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 18px;
+}
+
+.item {
+    background: linear-gradient(145deg,#fff,#e3e3e3);
+    padding: 22px;
+    border-radius: 13px;
+    transition: .3s;
+}
+
+.item:hover {
+    transform: translateY(-4px);
+}
+
+.item .icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.item h3 {
+    color: #19853d;
+    margin-bottom: 10px;
+}
+
+.item p {
+    font-size: 14px;
+}
+
+.photo {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 13px;
+    margin-top: 12px;
+}
+
+.destaque {
+    background: linear-gradient(120deg,#102b18,#249447);
+    padding: 25px;
+    border-radius: 14px;
+    color: white;
+    margin-top: 18px;
+}
+
+.destaque h2 {
+    color: white;
+}
+
+.destaque p {
+    color: #eee;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #0b160e;
+    border-top: 2px solid #32b65b;
+    color: #ccc;
+    font-size: 13px;
+}
+
+footer span {
+    color: #32b65b;
+}
+
+@media(max-width:600px) {
+    header {
+        justify-content: center;
+    }
+
+    .banner h1 {
+        font-size: 30px;
+    }
+
+    .section {
+        padding: 19px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">GREEN<span>GRASS</span> 🌱</div>
+
+    <nav>
+        <button class="active" id="nav-inicio" onclick="abrir('inicio')">Início</button>
+        <button id="nav-sobre" onclick="abrir('sobre')">Sobre</button>
+        <button id="nav-tipos" onclick="abrir('tipos')">Tipos</button>
+        <button id="nav-aplicacoes" onclick="abrir('aplicacoes')">Aplicações</button>
+    </nav>
+</header>
+
+<main>
+
+<!-- INÍCIO -->
+
+<div class="page active" id="inicio">
+
+    <div class="banner">
+        <h1>GRAMa <span>SINTÉTICA</span></h1>
+
+        <p>
+            Beleza, praticidade e resistência em um só lugar.
+            Descubra as vantagens da grama sintética e transforme
+            seus ambientes com um visual sempre verde.
+        </p>
+
+        <button class="btn" onclick="abrir('sobre')">
+            Conheça mais
+        </button>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🌱</div>
+            <h3>Visual natural</h3>
+            <strong>Sempre verde</strong>
+        </div>
+
+        <div class="card">
+            <div class="icon">💧</div>
+            <h3>Manutenção</h3>
+            <strong>Baixo consumo de água</strong>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚽</div>
+            <h3>Esportes</h3>
+            <strong>Versatilidade</strong>
+        </div>
+
+        <div class="card">
+            <div class="icon">🏡</div>
+            <h3>Decoração</h3>
+            <strong>Diversos ambientes</strong>
+        </div>
+
+    </div>
+
+    <section class="section">
+        <h2>🌿 O que é grama sintética?</h2>
+
+        <p>
+            A grama sintética é um revestimento produzido com
+            fibras artificiais que imitam a aparência da grama
+            natural. Ela pode ser utilizada em jardins, quadras,
+            áreas de lazer e ambientes decorativos.
+        </p>
+
+        <p>
+            Sua praticidade e variedade de modelos fazem dela
+            uma alternativa interessante para diferentes espaços.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>🏡 Transforme seu ambiente</h2>
+
+        <p>
+            Com a grama sintética, é possível criar espaços
+            agradáveis, modernos e com aparência natural,
+            sem precisar realizar os mesmos cuidados de um gramado natural.
+        </p>
+
+        <div class="destaque">
+            <h2>GreenGrass 🌱</h2>
+            <p>
+                Mais verde, mais praticidade e mais possibilidades
+                para seus ambientes.
+            </p>
+        </div>
+    </section>
+
+</div>
+
+<!-- SOBRE -->
+
+<div class="page" id="sobre">
+
+    <div class="banner">
+        <h1>SOBRE A <span>GRAMA SINTÉTICA</span></h1>
+        <p>
+            Conheça sua composição, características e principais vantagens.
+        </p>
+    </div>
+
+    <section class="section">
+        <h2>📖 Como é produzida?</h2>
+
+        <p>
+            A grama sintética é fabricada principalmente com
+            materiais plásticos, como polietileno e polipropileno.
+            Suas fibras são desenvolvidas para reproduzir
+            a aparência e a textura da grama natural.
+        </p>
+
+        <p>
+            O material é instalado sobre uma superfície preparada,
+            podendo receber diferentes acabamentos conforme
+            o local de utilização.
+        </p>
+    </section>
+
+    <section class="section">
+        <h2>⭐ Principais vantagens</h2>
+
+        <div class="grid">
+
+            <div class="item">
+                <div class="icon">💧</div>
+                <h3>Economia de água</h3>
+                <p>
+                    Não precisa de irrigação constante como
+                    um gramado natural.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">✂️</div>
+                <h3>Pouca manutenção</h3>
+                <p>
+                    Não necessita de cortes frequentes
+                    para manter sua aparência.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">☀️</div>
+                <h3>Praticidade</h3>
+                <p>
+                    Pode manter uma aparência uniforme
+                    durante diferentes épocas do ano.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">🏡</div>
+                <h3>Versatilidade</h3>
+                <p>
+                    Pode ser instalada em diferentes
+                    tipos de ambientes.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<!-- TIPOS -->
+
+<div class="page" id="tipos">
+
+    <div class="banner">
+        <h1>TIPOS DE <span>GRAMA</span></h1>
+        <p>
+            Existem diferentes modelos de grama sintética,
+            cada um indicado para determinadas necessidades.
+        </p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">🏡</div>
+            <h3>Grama decorativa</h3>
+            <strong>Jardins e varandas</strong>
+            <p>
+                Indicada para decoração de espaços residenciais
+                e comerciais.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚽</div>
+            <h3>Grama esportiva</h3>
+            <strong>Campos e quadras</strong>
+            <p>
+                Desenvolvida para ambientes esportivos,
+                considerando o uso e a segurança dos jogadores.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🐶</div>
+            <h3>Grama pet</h3>
+            <strong>Espaços para animais</strong>
+            <p>
+                Modelos desenvolvidos para ambientes
+                utilizados por animais de estimação.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="icon">🌳</div>
+            <h3>Grama paisagística</h3>
+            <strong>Áreas externas</strong>
+            <p>
+                Utilizada em projetos de paisagismo
+                e decoração de ambientes.
+            </p>
+        </div>
+
+    </div>
+
+    <section class="section">
+        <h2>🔎 Como escolher?</h2>
+
+        <p>
+            Para escolher a grama sintética ideal, é importante
+            observar a altura das fibras, a densidade, a resistência
+            e o local onde será instalada.
+        </p>
+
+        <p>
+            Cada ambiente possui necessidades diferentes,
+            por isso a escolha deve considerar a finalidade do espaço.
+        </p>
+    </section>
+
+</div>
+
+<!-- APLICAÇÕES -->
+
+<div class="page" id="aplicacoes">
+
+    <div class="banner">
+        <h1>ONDE <span>UTILIZAR?</span></h1>
+        <p>
+            A grama sintética pode transformar diversos espaços,
+            oferecendo praticidade e beleza.
+        </p>
+    </div>
+
+    <section class="section">
+        <h2>🏡 Principais aplicações</h2>
+
+        <div class="grid">
+
+            <div class="item">
+                <div class="icon">🏠</div>
+                <h3>Residências</h3>
+                <p>
+                    Ideal para jardins, quintais, varandas
+                    e áreas de lazer.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">⚽</div>
+                <h3>Campos esportivos</h3>
+                <p>
+                    Utilizada em campos de futebol e
+                    espaços para atividades esportivas.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">🏢</div>
+                <h3>Empresas</h3>
+                <p>
+                    Pode ser utilizada em ambientes comerciais,
+                    fachadas e espaços decorativos.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">🐕</div>
+                <h3>Áreas pet</h3>
+                <p>
+                    Pode compor espaços destinados
+                    aos animais de estimação.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">🏫</div>
+                <h3>Escolas</h3>
+                <p>
+                    Utilizada em espaços recreativos
+                    e áreas de convivência.
+                </p>
+            </div>
+
+            <div class="item">
+                <div class="icon">🌳</div>
+                <h3>Paisagismo</h3>
+                <p>
+                    Ajuda a criar ambientes verdes
+                    em projetos de decoração.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>🌱 Cuidados e conservação</h2>
+
+        <p>
+            Apesar de exigir pouca manutenção, a grama sintética
+            precisa de cuidados para conservar sua aparência.
+        </p>
+
+        <p>
+            A limpeza periódica, a retirada de folhas e sujeiras
+            e a escovação das fibras ajudam a manter o material
+            em boas condições.
+        </p>
+
+        <div class="destaque">
+            <h2>GreenGrass - Seu espaço mais verde!</h2>
+            <p>
+                Praticidade e beleza para transformar
+                qualquer ambiente.
+            </p>
+        </div>
+    </section>
+
+</div>
+
+</main>
+
+<footer>
+    <h3>GREEN<span>GRASS</span> 🌱</h3>
+    <p>Grama sintética | Beleza e praticidade</p>
+</footer>
+
+<script>
+
+function abrir(pagina) {
+
+    document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+    });
+
+    document.getElementById(pagina).classList.add('active');
+
+    document.querySelectorAll('nav button').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    document.getElementById('nav-' + pagina).classList.add('active');
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+</script>
+
+</body>
+</html>
